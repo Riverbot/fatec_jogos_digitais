@@ -1,9 +1,13 @@
+import java.awt.image.ReplicateScaleFilter;
 import java.util.List;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ChatAction;
+import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendChatAction;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -30,6 +34,9 @@ public class Main {
 		int m = 0;
 		
 		int conv = 0;//
+		
+		String [] t = {"Sim","Não"};
+		ReplyKeyboardMarkup replykb = new ReplyKeyboardMarkup(t);
 		
 		//loop infinito pode ser alterado por algum timer de intervalo curto
 		while(true){
@@ -60,8 +67,9 @@ public class Main {
 				case 0:
 					sendResponse = bot.execute(new SendMessage(update.message().chat().id(), "Olá, meu nome é Dooom Bot e estou programado para adivinhar qual personagem você está pensando!"));
 					baseResponse = bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
-					
 					sendResponse = bot.execute(new SendMessage(update.message().chat().id(), "Vamos começar?"));
+					baseResponse = bot.execute(new SendMessage(update.message().chat().id(),"").replyMarkup(replykb));
+					
 					break;
 					
 				case 1:
